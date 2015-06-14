@@ -1,0 +1,23 @@
+{
+    "name": "aboustayyef/extractor",
+    "description": "a wrapper class around PHP Readability to extract text and title from a URL",
+    "license": "MIT",
+    "keywords": ["scraping"],
+    "authors": [
+        {
+            "name": "Mustapha Hamoui",
+            "email": "mustapha@hamoui.com"
+        }
+    ],
+    "require": {
+        "fivefilters/php-readability": "1.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aboustayyef\\": "src"
+        }
+    }
+}
