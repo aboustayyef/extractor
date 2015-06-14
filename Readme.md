@@ -1,6 +1,6 @@
 #Text
 
-This is a utility class for extracting text from urls
+This is a utility class for extracting text from urls. It is a simple wrapper around the (no longer updated) PHP readability class by fivefilters. 
 
 ##Usage
 
