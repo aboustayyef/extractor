@@ -10,51 +10,40 @@ class Extractor
   public $url;
   private $html;
   private $readability;
-  private $result;
+  private $title;
+  private $result_html;
+  private $text;
 
   function __construct($url)
   {
     $this->url = $url;
     $this->html = @file_get_contents($this->url);
 
-    if (function_exists('tidy_parse_string')) {
-        $tidy = tidy_parse_string($this->html, array(), 'UTF8');
-        $tidy->cleanRepair();
-        $this->html = $tidy->value;
+    if (trim($this->html) == "") {
+      echo "Couldnt extract HTML";
+      die();
     }
 
-    $this->readability = new \Readability($this->html, $this->url);
-    $this->readability->debug = false;
-    $this->readability->convertLinksToFootnotes = false;
-    $this->result = $this->readability->init();
+    $this->readability = new Fl\Readability($this->html);
+    $result = $this->readability->getContent();
+    $this->title = $result['title'];
+    $this->result_html = $result['content'];
+    $this->text = strip_tags($this->result_html);
+  }
+
+
+// getters
+
+  public function getHtml(){
+    return $this->result_html;
   }
 
   public function getText(){
-
-    if ($this->result) {
-        $content = $this->readability->getContent()->innerHTML;
-
-        // if we've got Tidy, let's clean it up for output
-        if (function_exists('tidy_parse_string')) {
-            $tidy = tidy_parse_string($content, array('indent'=>true, 'show-body-only' => true), 'UTF8');
-            $tidy->cleanRepair();
-            $content = $tidy->value;
-        }
-        $content = strip_tags($content);
-        $content = preg_replace('#\n#', "", $content);
-        $content = preg_replace('#\s+#', " ", $content);
-        return $content;
-    } else {
-        return 'Looks like we couldn\'t find the content. :(';
-    }
+    return $this->text;
   }
 
   public function getTitle(){
-    if ($this->result) {
-      return $this->readability->getTitle()->textContent;
-    }else{
-      return "Sorry, could not get title";
-    }
+    return $this->title;
   }
 
 }

@@ -1,6 +1,6 @@
 {
     "name": "aboustayyef/extractor",
-    "description": "a wrapper class around PHP Readability to extract text and title from a URL",
+    "description": "a wrapper class around Feeling Lucky's PHP Readability to extract html, text and title from a URL",
     "license": "MIT",
     "keywords": ["scraping"],
     "authors": [
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "fivefilters/php-readability": "1.0"
+
     },
     "require-dev": {
         "phpspec/phpspec": "2.2.*"
